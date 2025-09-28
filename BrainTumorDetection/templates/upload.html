@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Upload MRI Image - Brain Tumor Detection{% endblock %}
+
+{% block extra_css %}
+<style>
+    .upload-section {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .image-preview {
+        max-height: 400px;
+        overflow: hidden;
+        border-radius: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="upload-section">
+    <div class="text-center mb-5">
+        <h1 class="display-5 mb-3">
+            <i class="fas fa-upload text-primary me-3"></i>
+            Upload MRI Image
+        </h1>
+        <p class="lead">Upload a brain MRI scan for AI-powered tumor detection analysis</p>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <form id="uploadForm" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <!-- Patient Information -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-user me-2"></i>
+                            Patient Information
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="patientName" class="form-label">Patient Name</label>
+                                <input type="text" class="form-control" id="patientName" 
+                                       placeholder="Enter patient name" required>
+                                <div class="invalid-feedback">
+                                    Please provide a patient name.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="patientEmail" class="form-label">Email (Optional)</label>
+                                <input type="email" class="form-control" id="patientEmail" 
+                                       placeholder="patient@email.com">
+                                <div class="invalid-feedback">
+                                    Please provide a valid email address.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="patientNotes" class="form-label">Additional Notes (Optional)</label>
+                            <textarea class="form-control" id="patientNotes" rows="3" 
+                                      placeholder="Any additional information about the patient or scan"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Upload -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-image me-2"></i>
+                            MRI Image Upload
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="upload-area" id="uploadArea">
+                            <div class="text-center">
+                                <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                <h5>Drag and drop MRI image here</h5>
+                                <p class="text-muted">or click to browse files</p>
+                                <p class="small text-muted">
+                                    Supported formats: JPEG, PNG, BMP, TIFF (Max: 16MB)
+                                </p>
+                            </div>
+                            <input type="file" id="fileInput" accept="image/*" style="display: none;" required>
+                        </div>
+                        
+                        <!-- Image Preview -->
+                        <div id="imagePreview" class="mt-3" style="display: none;">
+                            <div class="image-preview text-center">
+                                <!-- Preview will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="progressBar" class="mb-4" style="display: none;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="mb-2">Analyzing image...</h6>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                     style="width: 0%">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center mb-4">
+                    <button type="submit" class="btn btn-primary btn-lg btn-custom" id="submitBtn">
+                        <i class="fas fa-brain me-2"></i>
+                        Analyze MRI Image
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary btn-lg ms-3" id="resetBtn">
+                        <i class="fas fa-redo me-2"></i>
+                        Reset Form
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Container -->
+    <div id="resultContainer" style="display: none;">
+        <!-- Results will be inserted here -->
+    </div>
+</div>
+
+<!-- Alert Container -->
+<div id="alertContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+    <!-- Alerts will be inserted here -->
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// Reset form functionality
+document.getElementById('resetBtn').addEventListener('click', function() {
+    document.getElementById('uploadForm').reset();
+    document.getElementById('imagePreview').style.display = 'none';
+    document.getElementById('resultContainer').style.display = 'none';
+    document.getElementById('uploadForm').classList.remove('was-validated');
+    uploadedFile = null;
+});
+</script>
+{% endblock %}
