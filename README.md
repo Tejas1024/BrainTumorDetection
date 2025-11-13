@@ -425,7 +425,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- Your Name - Initial work - [YourGitHub](https://github.com/yourusername)
+- Tejas Gowda T R - Initial work - [YourGitHub](https://github.com/Tejas1024)
 
 ## 🙏 Acknowledgments
 
@@ -437,7 +437,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 For support and questions:
-- Email: your.email@example.com
+- Email: tejaspavithra2002@gmail.com
 - Issues: [GitHub Issues](https://github.com/yourusername/brain-tumor-detection/issues)
 - Documentation: [Project Wiki](https://github.com/yourusername/brain-tumor-detection/wiki)
 
@@ -468,3 +468,4 @@ This system is intended for research and educational purposes only. It should no
 ---
 
 **Made with ❤️ for advancing medical AI technology**
+
